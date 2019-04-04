@@ -1,26 +1,53 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+//import logo from './logo.svg';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { createMuiTheme } from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/lightBlue';
+import { Route } from 'react-router-dom';
+
+import Header from './components/Header';
+ import BookingsList from './components/bookings/BookingsList';
+
+const styles = {
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  topbar: {
+    display: 'flex',
+    width: '100%',
+    toolbar: {
+      width: '100%',
+    }
+  },
+  main: {
+    display: 'flex',
+    width: '100%',
+  },
+};
+
+const theme = createMuiTheme({
+    palette: {
+      primary: blue
+    },
+    typography: {
+      useNextVariants: true,
+    }
+});
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <div id="root" style={styles.root}>
+          <Header/>
+          {/* <HeaderOld styles={styles}/> */}
+          <div style={styles.main}>
+            <Route path="/bookings" component={BookingsList} />
+            {/* <Route path="/clients" component={ClientsList} /> */}
+          </div>
+        </div>
+    </MuiThemeProvider>
     );
   }
 }
