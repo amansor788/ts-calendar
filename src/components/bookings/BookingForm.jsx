@@ -1,4 +1,6 @@
 import React from 'react';
+import {Field, reduxForm} from 'redux-form';
+
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -77,6 +79,20 @@ class BookingForm extends React.Component {
     this.setState({ until: date });
   }
 
+  renderInput(formProps){
+    return (
+      <TextField
+      id="client"
+      label="Cliente"
+      // className={/classes.textField}
+      //value={this.state.client}
+      value="valorrrr"
+      onChange={this.handleChange}
+      margin="normal"
+      />
+    )
+  }
+
   render() {
     const { cabins } = this.props;
 
@@ -97,142 +113,139 @@ class BookingForm extends React.Component {
 
     return (
       
-      <form onSubmit={this.handleSubmit}>
-        <TextField
-          id="client"
-          label="Cliente"
-          // className={/classes.textField}
-          value={this.state.client}
-          onChange={this.handleChange}
-          margin="normal"
-        />
-        <TextField
-          id="since"
-          label="Desde"
-          type="date"
-          value={this.state.since}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={this.handleSinceDateChange}
-        />
-        {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <DatePicker
-            margin="normal"
-            label="Desde"
-            value={this.state.since}
-            onChange={this.handleSinceDateChange}
-          />
-        </MuiPickersUtilsProvider> */}
+      // <form onSubmit={this.handleSubmit}>
+      //   <TextField
+      //     id="client"
+      //     label="Cliente"
+      //     // className={/classes.textField}
+      //     value={this.state.client}
+      //     onChange={this.handleChange}
+      //     margin="normal"
+      //   />
+      //   <TextField
+      //     id="since"
+      //     label="Desde"
+      //     type="date"
+      //     value={this.state.since}
+      //     InputLabelProps={{
+      //       shrink: true,
+      //     }}
+      //     onChange={this.handleSinceDateChange}
+      //   />
+      //   {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      //     <DatePicker
+      //       margin="normal"
+      //       label="Desde"
+      //       value={this.state.since}
+      //       onChange={this.handleSinceDateChange}
+      //     />
+      //   </MuiPickersUtilsProvider> */}
  
-        <TextField
-          id="until"
-          label="Hasta"
-          type="date"
-          value={this.state.until}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={this.handleUntilDateChange}
-        />
+      //   <TextField
+      //     id="until"
+      //     label="Hasta"
+      //     type="date"
+      //     value={this.state.until}
+      //     InputLabelProps={{
+      //       shrink: true,
+      //     }}
+      //     onChange={this.handleUntilDateChange}
+      //   />
 
-        <TextField
-          id="total"
-          label="Total"
-          // className={/classes.textField}
-          value={this.state.total}
-          onChange={this.handleChange}
-          margin="normal"
-        />
-        <TextField
-          id="deposit"
-          label="Reserva"
-          // className={/classes.textField}
-          value={this.state.deposit}
-          onChange={this.handleChange}
-          margin="normal"
-        />
-         <FormControlLabel
-          control={
-            <Checkbox
-              name="deposited"
-              checked={!!this.state.deposited}
-              onChange={this.handleChange}
-            />}
-          label="Depositado"
-        />
-        <TextField
-          id="pax"
-          label="PAX"
-          // className={/classes.textField}
-          value={this.state.pax}
-          onChange={this.handleChange}
-          margin="normal"
-        />
-         <FormControlLabel
-          control={
-            <Checkbox
-            name="needs_cradle"
-            checked={!!this.state.needs_cradle}
-            onChange={this.handleChange}
-          />}
-            label="Cuna"
-        />
-         <FormControlLabel
-          control={
-            <Checkbox
-            name="has_dog"
-            label="Perro?"
-            checked={!!this.state.has_dog}
-            onChange={this.handleChange}
-            />}
-              label="Perro"
-        />
-        <InputLabel htmlFor="cabinId">Cabaña</InputLabel>
-          <Select
-            value={this.state.cabin}
-            onChange={this.onSelectChange}
-            inputProps={{
-              name: 'cabin',
-              id: 'cabinId',
-            }}
-          >
-            {cabins.map(
-              cabin => <MenuItem
-                key={cabin.id}
-                value={cabin.id}
-              >{cabin.name}</MenuItem>
-            )}
-          </Select>
-        {actions}
-       </form>
+      //   <TextField
+      //     id="total"
+      //     label="Total"
+      //     // className={/classes.textField}
+      //     value={this.state.total}
+      //     onChange={this.handleChange}
+      //     margin="normal"
+      //   />
+      //   <TextField
+      //     id="deposit"
+      //     label="Reserva"
+      //     // className={/classes.textField}
+      //     value={this.state.deposit}
+      //     onChange={this.handleChange}
+      //     margin="normal"
+      //   />
+      //    <FormControlLabel
+      //     control={
+      //       <Checkbox
+      //         name="deposited"
+      //         checked={!!this.state.deposited}
+      //         onChange={this.handleChange}
+      //       />}
+      //     label="Depositado"
+      //   />
+      //   <TextField
+      //     id="pax"
+      //     label="PAX"
+      //     // className={/classes.textField}
+      //     value={this.state.pax}
+      //     onChange={this.handleChange}
+      //     margin="normal"
+      //   />
+      //    <FormControlLabel
+      //     control={
+      //       <Checkbox
+      //       name="needs_cradle"
+      //       checked={!!this.state.needs_cradle}
+      //       onChange={this.handleChange}
+      //     />}
+      //       label="Cuna"
+      //   />
+      //    <FormControlLabel
+      //     control={
+      //       <Checkbox
+      //       name="has_dog"
+      //       label="Perro?"
+      //       checked={!!this.state.has_dog}
+      //       onChange={this.handleChange}
+      //       />}
+      //         label="Perro"
+      //   />
+      //   <InputLabel htmlFor="cabinId">Cabaña</InputLabel>
+      //     <Select
+      //       value={this.state.cabin}
+      //       onChange={this.onSelectChange}
+      //       inputProps={{
+      //         name: 'cabin',
+      //         id: 'cabinId',
+      //       }}
+      //     >
+      //       {cabins.map(
+      //         cabin => <MenuItem
+      //           key={cabin.id}
+      //           value={cabin.id}
+      //         >{cabin.name}</MenuItem>
+      //       )}
+      //     </Select>
+      //   {actions}
+      //  </form>
+      <form onSubmit={null}>
+        <Field name="client" label="Cliente" component="input"/>
+      </form>
     );
   }
 }
 
-BookingForm.propTypes = {
-  model: PropTypes.object,
-  actions: PropTypes.object,
-  cabins: PropTypes.array,
-  cabinActions: PropTypes.object,
-};
 
-// export default connect(
-//   store => ({
-//     cabins: store.cabins,
-//   })
-// )(BookingForm);
+// BookingForm.propTypes = {
+//   model: PropTypes.object,
+//   actions: PropTypes.object,
+//   cabins: PropTypes.array,
+//   cabinActions: PropTypes.object,
+// };
 
-
-///////////////////////////////////
 const mapStateToProps = (state) => {
   return {
+    form: 'bookingForm',
     cabins: state.cabins,
   };
 };
 
-export default connect(
+export default reduxForm({
   mapStateToProps,
-  {fetch}
-)(BookingForm);
+  fetch
+})(BookingForm);
 

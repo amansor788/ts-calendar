@@ -14,6 +14,7 @@ import InfoIcon from '@material-ui/icons/Info';
 
 import ModalForm from './ModalForm';
 import BookingForm from './bookings/BookingForm';
+import AleForm from './bookings/AleForm';
 import BookingCalendar from './Calendar/BookingCalendar';
 
 class TableItemMenu extends React.Component {
@@ -66,9 +67,9 @@ class TableItemMenu extends React.Component {
     const { editOpen, deleteOpen, detailOpen } = this.state;
 
     const editFormDialog = editOpen ? 
-      <ModalForm
+    <ModalForm
         open={editOpen}
-        form={BookingForm}
+        form={AleForm}
         title="Editar Reserva"
         actions={this.props.actions}
         afterSubmit={() => this.setState({ editOpen: false })}
@@ -96,7 +97,7 @@ class TableItemMenu extends React.Component {
       </Dialog>
     ) : null;
 
-    return (
+    return (      
       <div>
         <IconButton onClick={this.onEdit}>
           <EditIcon />
