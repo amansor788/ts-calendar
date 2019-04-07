@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as bookingActions from '../../actions/BookingActions';
 import TableItemMenu from '../../components/TableItemMenu';
-import BookingCalendar from '../../components/Calendar/BookingCalendar';
+// import BookingCalendar from '../../components/Calendar/BookingCalendar';
 
 const styles = {
   list: {
@@ -120,7 +120,7 @@ class BookingsList extends React.Component {
               <CustomTableCell>$ {booking.total - booking.deposit}</CustomTableCell>
               <CustomTableCell>{booking.deposited ? 'X' : ''}</CustomTableCell>
               <CustomTableCell>{booking.pax}</CustomTableCell>
-              <CustomTableCell>{booking.needs_cradle == 1 ? 'X' : ''}</CustomTableCell>
+              <CustomTableCell>{booking.needs_cradle === 1 ? 'X' : ''}</CustomTableCell>
               <CustomTableCell>{booking.has_dog ? 'X' : ''}</CustomTableCell>
               <CustomTableCell>Cabana {booking.cabin}</CustomTableCell>
               <CustomTableCell>{booking.created_at.toString()}</CustomTableCell>

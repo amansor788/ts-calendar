@@ -13,7 +13,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import InfoIcon from '@material-ui/icons/Info';
 
 import ModalForm from './ModalForm';
-import BookingForm from './bookings/BookingForm';
+//import BookingForm from './bookings/BookingForm';
 import AleForm from './bookings/AleForm';
 import BookingCalendar from './Calendar/BookingCalendar';
 

@@ -1,20 +1,15 @@
+import _ from 'lodash';
 import * as types from '../actions/CabinActionsTypes';
 
-const initialState = [];
-
-const cabins = function cabins(state = initialState, action) {
-  let newState = [...state];
+const cabins = (state = {}, action) => {
   switch (action.type) {
     case types.FETCH_CABINS_SUCCESS: {
-      newState = newState.concat(action.cabins);
-      break;
+      return {...state, ..._.mapKeys(action.cabins,'id')};
     }
     default: {
-      break;
+      return state;
     }
   }
-
-  return newState;
 };
 
 export default cabins;

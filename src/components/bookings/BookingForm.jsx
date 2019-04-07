@@ -2,16 +2,16 @@ import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import {MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
-import DateFnsUtils from '@date-io/date-fns';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
+// import Checkbox from '@material-ui/core/Checkbox';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import {MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
+// import DateFnsUtils from '@date-io/date-fns';
+// import Select from '@material-ui/core/Select';
+// import InputLabel from '@material-ui/core/InputLabel';
+// import MenuItem from '@material-ui/core/MenuItem';
 
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
 import {fetch} from '../../actions/CabinActions';
 
 class BookingForm extends React.Component {
@@ -42,7 +42,7 @@ class BookingForm extends React.Component {
     this.onSelectChange = this.onSelectChange.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount() {    
     this.props.fetch();
   }
 
