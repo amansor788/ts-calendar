@@ -37,7 +37,6 @@ class BookingForm extends React.Component {
                     <Checkbox
                         checked={formProps.input.value === 'true'}
                         {...formProps.input}
-                    // onChange={this.handleChange}
                     />
                 }
                 label={formProps.label}
@@ -50,8 +49,6 @@ class BookingForm extends React.Component {
         return (
             <Select
                 {...formProps.input}
-                // value={this.state.cabin}
-                // onChange={this.onSelectChange}
                 inputProps={{
                     name: 'cabin',
                     id: 'cabinId',
@@ -68,18 +65,7 @@ class BookingForm extends React.Component {
     }
 
     onSubmit = formValues => {
-        //console.log('formValues', formValues);
         this.props.onSubmit(formValues);
-        // e.preventDefault();
-        // const { model } = this.props;
-    
-        // if (model) {
-        //   this.props.actions.updateBooking(model.id, { ...this.state });
-        // } else {
-        //   this.props.actions.addBooking({ ...this.state });
-        // }
-    
-        // this.props.afterSubmit();
     }
 
     render() {

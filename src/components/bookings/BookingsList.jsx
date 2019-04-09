@@ -153,7 +153,7 @@ BookingsList.propTypes = {
 
 export default connect(
   store => ({
-    bookings: store.bookings,
+    bookings: Object.values(store.bookings),
   }),
   dispatch => ({
     bookingActions: bindActionCreators(bookingActions, dispatch),

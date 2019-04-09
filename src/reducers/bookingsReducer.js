@@ -1,37 +1,24 @@
 import _ from 'lodash';
 import * as types from '../actions/BookingActionsTypes';
 
-const initialState = [];
-
-const bookings = function bookings(state = initialState, action) {
-  let newState = [...state];
-  let bookingIndex = null;
+const bookings = (state = {}, action) => {
   switch (action.type) {
     case 'FETCH_BOOKINGS_SUCCESS': {
-      newState = newState.concat(action.bookings);
-      break;
+      return {...state, ..._.mapKeys(action.bookings,'id')}
     }
     case 'ADD_BOOKING': {
-      newState.push({ ...action.payload.booking, id: _.uniqueId() });
-      break;
-    }
-    case types.REMOVE_BOOKING: {
-      bookingIndex = _.findIndex(newState, { id: action.payload.bookingId });
-      newState.splice(bookingIndex, 1);
-      break;
+      return {...state, [action.booking.id] : action.booking}
     }
     case 'UPDATE_BOOKING_SUCCESS': {
-      const booking = _.find(newState, { id: action.booking.id });
-      bookingIndex = _.findIndex(newState, { id: action.booking.id });
-      newState.splice(bookingIndex, 1, { ...booking, ...action.booking });
-      break;
+      return {...state, [action.booking.id] : action.booking}
+    }
+    case types.REMOVE_BOOKING: {
+      return _.omit(state, action.payload)
     }
     default: {
-      break;
+      return state;
     }
   }
-
-  return newState;
 };
 
 export default bookings;

@@ -27,12 +27,13 @@ export function addBooking(booking) {
   };
 }
 
-export function removeBooking(bookingId) {
-  //console.log('action removeBooking', bookingId);
-  return {
-    type: types.REMOVE_BOOKING,
-    payload: { bookingId },
-  };
+export const removeBooking = (bookingId) => async dispatch => {
+  //TODO en BackEnd!!!!
+  // axios.delete(`http://localhost:3000/bookings/${bookingId}`);
+  dispatch({
+          type: types.REMOVE_BOOKING,
+          payload: bookingId ,
+  });
 }
 
 export function updateBooking(bookingId, booking) {
