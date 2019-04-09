@@ -13,8 +13,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import InfoIcon from '@material-ui/icons/Info';
 
 import ModalForm from './ModalForm';
-//import BookingForm from './bookings/BookingForm';
-import AleForm from './bookings/AleForm';
+import BookingForm from './bookings/BookingForm';
 import BookingCalendar from './Calendar/BookingCalendar';
 
 class TableItemMenu extends React.Component {
@@ -38,10 +37,17 @@ class TableItemMenu extends React.Component {
     this.setState({ editOpen: false });
   }
 
+  onEditConfirm = (bookingId, formValues) => {
+    //e.stopPropagation();
+    this.props.onEditConfirm(bookingId, formValues);
+    this.setState({ editOpen: false });
+  }
+
   onDelete = e => {
     e.stopPropagation();
     this.setState({ deleteOpen: true });
   }
+
  onDeleteCancel = e => {
     e.stopPropagation();
     this.setState({ deleteOpen: false });
@@ -69,10 +75,9 @@ class TableItemMenu extends React.Component {
     const editFormDialog = editOpen ? 
     <ModalForm
         open={editOpen}
-        form={AleForm}
+        form={BookingForm}
         title="Editar Reserva"
-        actions={this.props.actions}
-        afterSubmit={() => this.setState({ editOpen: false })}
+        onEditConfirm={this.onEditConfirm}
         OnCancel={this.onEditCancel}
         model={model}
       />

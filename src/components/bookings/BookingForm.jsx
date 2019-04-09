@@ -1,251 +1,120 @@
-import React from 'react';
-import {Field, reduxForm} from 'redux-form';
+import React from 'react'
+import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux';
 
 import TextField from '@material-ui/core/TextField';
-// import Checkbox from '@material-ui/core/Checkbox';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import {MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
-// import DateFnsUtils from '@date-io/date-fns';
-// import Select from '@material-ui/core/Select';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import MenuItem from '@material-ui/core/MenuItem';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
-// import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-import {fetch} from '../../actions/CabinActions';
+import { fetch as fetchCabins } from '../../actions/CabinActions';
 
 class BookingForm extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      id: '',
-      client: '',
-      since: new Date(),
-      until: new Date(),
-      total: '',
-      deposit: '',
-      deposited: '',
-      pax: '',
-      needs_cradle: '',
-      has_dog: '',
-      cabin: '',
-    };
-
-    this.state = { ...this.state, ...this.props.model };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSinceDateChange = this.handleSinceDateChange.bind(this);
-    this.handleUntilDateChange = this.handleUntilDateChange.bind(this);
-    this.onSelectChange = this.onSelectChange.bind(this);
-  }
-
-  componentDidMount() {    
-    this.props.fetch();
-  }
-
-  onSelectChange(event, index, value) {
-    this.setState({ cabin: value });
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    const { model } = this.props;
-
-    if (model) {
-      this.props.actions.updateBooking(model.id, { ...this.state });
-    } else {
-      this.props.actions.addBooking({ ...this.state });
+    componentDidMount() {
+        this.props.fetchCabins();
     }
 
-    this.props.afterSubmit();
-  }
+    renderTextField(formProps) {
+        return (
+            <TextField
+                label={formProps.label}
+                type={formProps.type}
+                {...formProps.input}
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                margin="normal"
+            />
+        )
+    }
 
-  handleCancel(e) {
-    this.props.afterCancel();
-  }
+    renderCheckBox(formProps) {
+        return (
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        checked={formProps.input.value === 'true'}
+                        {...formProps.input}
+                    // onChange={this.handleChange}
+                    />
+                }
+                label={formProps.label}
+            />
+        )
+    }
 
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
+    renderSelect = (formProps) => {
+        const { cabins } = this.props;
+        return (
+            <Select
+                {...formProps.input}
+                // value={this.state.cabin}
+                // onChange={this.onSelectChange}
+                inputProps={{
+                    name: 'cabin',
+                    id: 'cabinId',
+                }}
+            >
+                {cabins.map(
+                    cabin => <MenuItem
+                        key={cabin.id}
+                        value={cabin.id}
+                    >{cabin.name}</MenuItem>
+                )}
+            </Select>
+        )
+    }
 
-  handleSinceDateChange(e, date) {
-    this.setState({ since: date });
-  }
+    onSubmit = formValues => {
+        //console.log('formValues', formValues);
+        this.props.onSubmit(formValues);
+        // e.preventDefault();
+        // const { model } = this.props;
+    
+        // if (model) {
+        //   this.props.actions.updateBooking(model.id, { ...this.state });
+        // } else {
+        //   this.props.actions.addBooking({ ...this.state });
+        // }
+    
+        // this.props.afterSubmit();
+    }
 
-  handleUntilDateChange(e, date) {
-    this.setState({ until: date });
-  }
+    render() {
+        const { handleSubmit } = this.props;
 
-  renderInput(formProps){
-    return (
-      <TextField
-      id="client"
-      label="Cliente"
-      // className={/classes.textField}
-      //value={this.state.client}
-      value="valorrrr"
-      onChange={this.handleChange}
-      margin="normal"
-      />
-    )
-  }
-
-  render() {
-    const { cabins } = this.props;
-
-    const actions = [
-      // <FlatButton
-      //   key="cancel"
-      //   label="Cancelar"
-      //   primary
-      //   onTouchTap={this.handleCancel}
-      // />,
-      // <FlatButton
-      //   key="save"
-      //   label="Guardar"
-      //   primary
-      //   onTouchTap={this.handleSubmit}
-      // />,
-    ];
-
-    return (
-      
-      // <form onSubmit={this.handleSubmit}>
-      //   <TextField
-      //     id="client"
-      //     label="Cliente"
-      //     // className={/classes.textField}
-      //     value={this.state.client}
-      //     onChange={this.handleChange}
-      //     margin="normal"
-      //   />
-      //   <TextField
-      //     id="since"
-      //     label="Desde"
-      //     type="date"
-      //     value={this.state.since}
-      //     InputLabelProps={{
-      //       shrink: true,
-      //     }}
-      //     onChange={this.handleSinceDateChange}
-      //   />
-      //   {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      //     <DatePicker
-      //       margin="normal"
-      //       label="Desde"
-      //       value={this.state.since}
-      //       onChange={this.handleSinceDateChange}
-      //     />
-      //   </MuiPickersUtilsProvider> */}
- 
-      //   <TextField
-      //     id="until"
-      //     label="Hasta"
-      //     type="date"
-      //     value={this.state.until}
-      //     InputLabelProps={{
-      //       shrink: true,
-      //     }}
-      //     onChange={this.handleUntilDateChange}
-      //   />
-
-      //   <TextField
-      //     id="total"
-      //     label="Total"
-      //     // className={/classes.textField}
-      //     value={this.state.total}
-      //     onChange={this.handleChange}
-      //     margin="normal"
-      //   />
-      //   <TextField
-      //     id="deposit"
-      //     label="Reserva"
-      //     // className={/classes.textField}
-      //     value={this.state.deposit}
-      //     onChange={this.handleChange}
-      //     margin="normal"
-      //   />
-      //    <FormControlLabel
-      //     control={
-      //       <Checkbox
-      //         name="deposited"
-      //         checked={!!this.state.deposited}
-      //         onChange={this.handleChange}
-      //       />}
-      //     label="Depositado"
-      //   />
-      //   <TextField
-      //     id="pax"
-      //     label="PAX"
-      //     // className={/classes.textField}
-      //     value={this.state.pax}
-      //     onChange={this.handleChange}
-      //     margin="normal"
-      //   />
-      //    <FormControlLabel
-      //     control={
-      //       <Checkbox
-      //       name="needs_cradle"
-      //       checked={!!this.state.needs_cradle}
-      //       onChange={this.handleChange}
-      //     />}
-      //       label="Cuna"
-      //   />
-      //    <FormControlLabel
-      //     control={
-      //       <Checkbox
-      //       name="has_dog"
-      //       label="Perro?"
-      //       checked={!!this.state.has_dog}
-      //       onChange={this.handleChange}
-      //       />}
-      //         label="Perro"
-      //   />
-      //   <InputLabel htmlFor="cabinId">Cabaña</InputLabel>
-      //     <Select
-      //       value={this.state.cabin}
-      //       onChange={this.onSelectChange}
-      //       inputProps={{
-      //         name: 'cabin',
-      //         id: 'cabinId',
-      //       }}
-      //     >
-      //       {cabins.map(
-      //         cabin => <MenuItem
-      //           key={cabin.id}
-      //           value={cabin.id}
-      //         >{cabin.name}</MenuItem>
-      //       )}
-      //     </Select>
-      //   {actions}
-      //  </form>
-      <form onSubmit={null}>
-        <Field name="client" label="Cliente" component="input"/>
-      </form>
-    );
-  }
+        return (
+            <form id="bookingFormId" onSubmit={handleSubmit(this.onSubmit)}>
+                <Field name="client" label="Cliente" component={this.renderTextField} type="text" />
+                <Field name="since" label="Desde" component={this.renderTextField} type="date" />
+                <Field name="until" label="Hasta" component={this.renderTextField} type="date" />
+                <Field name="total" label="Total" component={this.renderTextField} type="text" />
+                <Field name="deposit" label="Reserva" component={this.renderTextField} type="text" />
+                <Field name="pax" label="Pax" component={this.renderTextField} type="text" />
+                <Field name="deposited" label="Confirmado" component={this.renderCheckBox}
+                    format={val => { return (val === 1 ? 'true' : 'false') }}
+                    normalize={val => {return (val ? 1 : 0)}} />
+                <Field name="needs_cradle" label="Cuna" component={this.renderCheckBox}
+                    format={val => { return (val === 1 ? 'true' : 'false') }} 
+                    normalize={val => {return (val ? 1 : 0)}} />
+                <Field name="has_dog" label="Perro" component={this.renderCheckBox}
+                    format={val => { return (val === true ? 'true' : 'false') }} />
+                <Field name="cabin" label="Cabana" component={this.renderSelect}/>
+            </form>
+        )
+    }
 }
 
-
-// BookingForm.propTypes = {
-//   model: PropTypes.object,
-//   actions: PropTypes.object,
-//   cabins: PropTypes.array,
-//   cabinActions: PropTypes.object,
-// };
-
 const mapStateToProps = (state) => {
-  return {
-    form: 'bookingForm',
-    cabins: state.cabins,
-  };
+    return {
+        cabins: Object.values(state.cabins),
+    }
 };
 
-export default reduxForm({
-  mapStateToProps,
-  fetch
-})(BookingForm);
+BookingForm = reduxForm({
+    form: 'bookingForm',
+})(BookingForm)
 
+export default connect(mapStateToProps, { fetchCabins })(BookingForm)

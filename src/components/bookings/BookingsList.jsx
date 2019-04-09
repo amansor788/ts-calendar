@@ -69,6 +69,10 @@ class BookingsList extends React.Component {
     this.setState({ editOpen: true });
   }
 
+  handleEditConfirm = (bookingId, formValues) => {
+    this.props.bookingActions.updateBooking(bookingId, formValues);
+  }
+
   handleDelete(e) {
     e.stopPropagation();
     this.setState({ deleteOpen: true });
@@ -128,7 +132,8 @@ class BookingsList extends React.Component {
                 <TableItemMenu
                   model={booking}
                   actions={this.props.bookingActions}
-                  onDeleteConfirm={this.handleDeleteConfirm.bind(this, booking.id)} />
+                  onDeleteConfirm={this.handleDeleteConfirm.bind(this, booking.id)}
+                  onEditConfirm={this.handleEditConfirm} />
               </CustomTableCell>
             </TableRow>
           ))}
