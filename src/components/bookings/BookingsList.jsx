@@ -7,12 +7,17 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as bookingActions from '../../actions/BookingActions';
 import TableItemMenu from '../../components/TableItemMenu';
+
 // import BookingCalendar from '../../components/Calendar/BookingCalendar';
+import ModalForm from '../ModalForm';
+import BookingForm from './BookingForm';
 
 const styles = {
   list: {
@@ -49,7 +54,6 @@ class BookingsList extends React.Component {
       deleteOpen: false,
     };
 
-    this.handleNew = this.handleNew.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
@@ -60,9 +64,21 @@ class BookingsList extends React.Component {
     this.props.bookingActions.fetch();
   }
 
-  handleNew(e) {
+  onNew = e => {
+    e.stopPropagation();
     this.setState({ newOpen: true });
   }
+
+  onNewCancel = e => {
+    e.stopPropagation();
+    this.setState({ newOpen: false });
+  }
+
+  onNewConfirm = (formValues) => {
+    this.props.bookingActions.addBooking(formValues);
+    this.setState({ newOpen: false });
+  }
+
 
   handleEdit(e) {
     e.stopPropagation();
@@ -88,9 +104,20 @@ class BookingsList extends React.Component {
   }
 
   render() {
+    const {newOpen} = this.state;
+
+    const newFormDialog = newOpen ? 
+    <ModalForm
+        open={newOpen}
+        form={BookingForm}
+        title="Nueva Reserva"
+        onConfirm={this.onNewConfirm}
+        OnCancel={this.onNewCancel}
+      />
+    : null;
+
     return (
       <div style={styles.list}>
-
       <Table style={{ width: "auto", tableLayout: "auto" }}>
         <TableHead>
           <TableRow>            
@@ -139,9 +166,11 @@ class BookingsList extends React.Component {
           ))}
         </TableBody>
       </Table>
-  
-
-     
+      <Fab color="primary" size="small" aria-label="Add" 
+        style={styles.addButton} onClick={this.onNew}>
+        <AddIcon />
+        {newFormDialog}  
+      </Fab>
   </div>
     );
   }

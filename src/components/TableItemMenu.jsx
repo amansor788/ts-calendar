@@ -77,7 +77,7 @@ class TableItemMenu extends React.Component {
         open={editOpen}
         form={BookingForm}
         title="Editar Reserva"
-        onEditConfirm={this.onEditConfirm}
+        onConfirm={this.onEditConfirm}
         OnCancel={this.onEditCancel}
         model={model}
       />

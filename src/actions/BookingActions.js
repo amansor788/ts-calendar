@@ -14,10 +14,11 @@ export function fetch() {
   };
 }
 
-export function addBooking(booking) {
+export const addBooking = booking => {
   return (dispatch) => {
     dispatch({ type: types.ADD_BOOKING_START });
-    axios.post('http://localhost:3000/bookings')
+    console.log('ACTION booking', booking);
+    axios.post('http://localhost:3000/bookings', booking)
       .then((response) => {
         dispatch({
           type: types.ADD_BOOKING_SUCCESS,

@@ -20,10 +20,9 @@ class ModalForm extends React.Component {
     const {model} = this.props;
 
     if (model) {
-      this.props.onEditConfirm(model.id, formValues);
+      this.props.onConfirm(model.id, formValues);
     } else {
-      console.log('crear');
-      // this.props.actions.addBooking({ ...this.state });
+      this.props.onConfirm(formValues);
     }
   }
 

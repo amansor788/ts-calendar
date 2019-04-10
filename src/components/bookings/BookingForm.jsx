@@ -26,6 +26,7 @@ class BookingForm extends React.Component {
                     shrink: true,
                 }}
                 margin="normal"
+                autoComplete="off"
             />
         )
     }
