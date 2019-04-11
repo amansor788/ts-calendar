@@ -20,10 +20,6 @@ import ModalForm from '../ModalForm';
 import BookingForm from './BookingForm';
 
 const styles = {
-  list: {
-    width: '100%',
-    
-  },
   addButton: {
     position: 'fixed',
     bottom: '10px',
@@ -37,10 +33,14 @@ const CustomTableCell = withStyles(theme => ({
     color: theme.palette.common.white,    
     fontSize: '1.20rem',
     align: 'center',
+    textAlign: 'center',
+    padding: '0px',
   },
   body: {
     fontSize: '1.00rem',
     align: 'center',
+    textAlign: 'center',
+    padding: '0px',
   },
 }))(TableCell);
 
@@ -117,11 +117,11 @@ class BookingsList extends React.Component {
     : null;
 
     return (
-      <div style={styles.list}>
-      <Table style={{ width: "auto", tableLayout: "auto" }}>
+      <div>
+      <Table>
         <TableHead>
           <TableRow>            
-            <CustomTableCell>Cliente</CustomTableCell>
+            <CustomTableCell>Clientes</CustomTableCell>
             <CustomTableCell>Desde</CustomTableCell>
             <CustomTableCell>Hasta</CustomTableCell>
             <CustomTableCell># Dias</CustomTableCell>
@@ -139,7 +139,7 @@ class BookingsList extends React.Component {
         </TableHead>
         <TableBody>
           {this.props.bookings.map(booking => (
-            <TableRow key={booking.id}>
+            <TableRow key={booking.id} style={styles.row}>
               <CustomTableCell component="th" scope="row">{booking.client}</CustomTableCell>
               <CustomTableCell>{booking.since.toString()}</CustomTableCell>
               <CustomTableCell>{booking.until.toString()}</CustomTableCell>

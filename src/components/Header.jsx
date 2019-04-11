@@ -9,14 +9,17 @@ import Button from '@material-ui/core/Button';
 const Header = (props) => {
     return (
         <AppBar position="static" color="default">
-        <Toolbar>
-          <Typography variant="h4" color="inherit">
-            Trece Sauces - Calendario de Reservasss
-          </Typography>
-          <Button color="inherit" component={Link} to="/bookings">Reservas</Button>
-          <Button color="inherit" component={Link} to="/clients">Clientes</Button>
-        </Toolbar>
-      </AppBar>
+          <Toolbar>
+            <Typography variant="h4"
+              style={{ borderRight: '0.04em solid grey', paddingRight: '0.5em' }}>
+              Trece Sauces - Calendario de Reservas
+            </Typography>
+            <div style={{ padding: '0.5em' }}>
+              <Button component={Link} to="/bookings">Reservas</Button>
+              <Button component={Link} to="/clients">Clientes</Button>
+            </div>
+          </Toolbar>
+        </AppBar>
     )
 }
 

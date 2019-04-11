@@ -105,15 +105,15 @@ class TableItemMenu extends React.Component {
     return (      
       <div>
         <IconButton onClick={this.onEdit}>
-          <EditIcon />
+          <EditIcon style={{transform: 'scale(0.8)'}}/>
           {editFormDialog}
         </IconButton>
         <IconButton onClick={this.onDelete}>
-          <DeleteIcon />
+          <DeleteIcon style={{transform: 'scale(0.8)'}}/>
           {deleteForm}
         </IconButton>
         <IconButton onClick={this.onDetail}>
-          <InfoIcon />
+          <InfoIcon style={{transform: 'scale(0.8)'}}/>
           <Dialog open={detailOpen} onClose={this.onDetailClose} aria-labelledby="simple-dialog-title">
             <DialogTitle id="simple-dialog-title">Info Reserva</DialogTitle>   
             <DialogContent>
