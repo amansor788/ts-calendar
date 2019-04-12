@@ -10,7 +10,10 @@ import { connect } from 'react-redux';
 class ModalForm extends React.Component {
   onClick = e => {
     e.preventDefault();
-    const formNametoSubmit = this.props.form.type.WrappedComponent.defaultProps.form;
+    const formNametoSubmit = (this.props.form.type.WrappedComponent
+      ? this.props.form.type.WrappedComponent.defaultProps.form
+      : this.props.form.type.defaultProps.form);
+    
     this.props.dispatch(submit(formNametoSubmit));
   }
 

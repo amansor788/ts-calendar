@@ -17,7 +17,9 @@ export function fetch() {
 export function addClient(client) {
   return (dispatch) => {
     dispatch({ type: types.ADD_CLIENT_START });
-    axios.post('http://localhost:3000/clients', { client })
+    //hardcoding to support filed trucante (TODO)
+    client.condition = 'potencial';
+    axios.post('http://localhost:3000/clients',  client )
       .then((response) => {
         dispatch({
           type: types.ADD_CLIENT_SUCCESS,

@@ -15,12 +15,6 @@ import TableItemMenu from '../../components/TableItemMenu';
 import ModalForm from '../ModalForm';
 import ClientForm from './ClientForm';
 
-// import _ from 'lodash';
-// import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-// import { connect } from 'react-redux';
-// import ClientForm from './ClientForm';
-// import TableItemMenu from '../../components/TableItemMenu'; 
-
 const styles = {
   addButton: {
     position: 'fixed',
@@ -33,8 +27,6 @@ class ClientsList extends React.Component {
 
   state = {
     newOpen: false,
-    editOpen: false,
-    deleteOpen: false,
   }
 
   componentDidMount() {
@@ -51,7 +43,7 @@ class ClientsList extends React.Component {
     this.setState({ newOpen: false });
   }
 
-  onNewConfirm = (formValues) => {
+  handleNewConfirm = formValues => {
     this.props.clientActions.addClient(formValues);
     this.setState({ newOpen: false });
   }
@@ -67,9 +59,8 @@ class ClientsList extends React.Component {
     const newFormDialog = newOpen ? 
     <ModalForm
         open={newOpen}
-        form={ClientForm}
+        form={<ClientForm onSubmit={this.handleNewConfirm}/>}
         title="Nuevo Cliente"
-        onConfirm={this.onNewConfirm}
         OnCancel={this.onNewCancel}
       />
     : null;
