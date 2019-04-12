@@ -6,24 +6,7 @@ import blue from '@material-ui/core/colors/lightBlue';
 
 import Header from './components/Header';
 import BookingsList from './components/bookings/BookingsList';
-
-// const styles = {
-//   root: {
-//     display: 'flex',
-//     flexDirection: 'column',
-//   },
-//   topbar: {
-//     display: 'flex',
-//     width: '100%',
-//     toolbar: {
-//       width: '100%',
-//     }
-//   },
-//   main: {
-//     display: 'flex',
-//     width: '100%',
-//   },
-// };
+import ClientsList from './components/clients/ClientsList';
 
 const theme = createMuiTheme({
     palette: {
@@ -47,10 +30,9 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <div id="root">
           <Header/>
-          {/* <HeaderOld styles={styles}/> */}
           <div>
             <Route path="/bookings" component={BookingsList} />
-            {/* <Route path="/clients" component={ClientsList} /> */}
+            <Route path="/clients" component={ClientsList} />
           </div>
         </div>
     </MuiThemeProvider>

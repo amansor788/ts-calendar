@@ -1,7 +1,8 @@
 import React from 'react';
+import _ from 'lodash';
+
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -17,14 +18,10 @@ import BookingForm from './bookings/BookingForm';
 import BookingCalendar from './Calendar/BookingCalendar';
 
 class TableItemMenu extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+  state = {
       editOpen: false,
       deleteOpen: false,
       detailOpen: false,
-    };
   }
 
   onEdit = e => {
@@ -37,9 +34,8 @@ class TableItemMenu extends React.Component {
     this.setState({ editOpen: false });
   }
 
-  onEditConfirm = (bookingId, formValues) => {
-    //e.stopPropagation();
-    this.props.onEditConfirm(bookingId, formValues);
+  onEditConfirm = (formValues) => {
+    this.props.onEditConfirm(this.props.model.id, formValues);
     this.setState({ editOpen: false });
   }
 
@@ -54,7 +50,7 @@ class TableItemMenu extends React.Component {
   }
 
   onDeleteConfirm = e => {
-    this.props.onDeleteConfirm();
+    this.props.onDeleteConfirm(this.props.model.id);
     this.setState({ deleteOpen: false });
   }
 
@@ -75,11 +71,13 @@ class TableItemMenu extends React.Component {
     const editFormDialog = editOpen ? 
     <ModalForm
         open={editOpen}
-        form={BookingForm}
+        form={<BookingForm 
+                onSubmit={this.onEditConfirm}
+                initialValues={_.pick(model,
+                  'client', 'since', 'until', 'total', 'deposit', 'pax'
+                  ,'deposited', 'needs_cradle','has_dog', 'cabin')}/>}
         title="Editar Reserva"
-        onConfirm={this.onEditConfirm}
         OnCancel={this.onEditCancel}
-        model={model}
       />
     : null;
 
@@ -117,12 +115,10 @@ class TableItemMenu extends React.Component {
           <Dialog open={detailOpen} onClose={this.onDetailClose} aria-labelledby="simple-dialog-title">
             <DialogTitle id="simple-dialog-title">Info Reserva</DialogTitle>   
             <DialogContent>
-              {/* <DialogContentText id="alert-dialog-description"> */}
                 {Object.keys(model).map((attr) => {
                   return <div key={attr}>{attr}: {model[attr].toString()}</div>;
                 })}
                 <BookingCalendar bookings={[model]}/>
-              {/* </DialogContentText> */}
             </DialogContent> 
           </Dialog>
         </IconButton>

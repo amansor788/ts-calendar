@@ -3,19 +3,17 @@ import PropTypes from 'prop-types';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import CustomTableCell from '../CustomTableCell';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as bookingActions from '../../actions/BookingActions';
-import TableItemMenu from '../../components/TableItemMenu';
 
-// import BookingCalendar from '../../components/Calendar/BookingCalendar';
+import TableItemMenu from '../../components/TableItemMenu';
 import ModalForm from '../ModalForm';
 import BookingForm from './BookingForm';
 
@@ -27,37 +25,9 @@ const styles = {
   },
 };
 
-const CustomTableCell = withStyles(theme => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,    
-    fontSize: '1.20rem',
-    align: 'center',
-    textAlign: 'center',
-    padding: '0px',
-  },
-  body: {
-    fontSize: '1.00rem',
-    align: 'center',
-    textAlign: 'center',
-    padding: '0px',
-  },
-}))(TableCell);
-
 class BookingsList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+  state = {
       newOpen: false,
-      editOpen: false,
-      deleteOpen: false,
-    };
-
-    this.handleEdit = this.handleEdit.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
-    this.handleDeleteCancel = this.handleDeleteCancel.bind(this);
   }
 
   componentDidMount() {
@@ -74,32 +44,17 @@ class BookingsList extends React.Component {
     this.setState({ newOpen: false });
   }
 
-  onNewConfirm = (formValues) => {
+  handleNewConfirm = formValues => {
     this.props.bookingActions.addBooking(formValues);
-    this.setState({ newOpen: false });
-  }
-
-
-  handleEdit(e) {
-    e.stopPropagation();
-    this.setState({ editOpen: true });
+    this.setState({ newOpen: false });  
   }
 
   handleEditConfirm = (bookingId, formValues) => {
     this.props.bookingActions.updateBooking(bookingId, formValues);
   }
 
-  handleDelete(e) {
-    e.stopPropagation();
-    this.setState({ deleteOpen: true });
-  }
-
-  handleDeleteConfirm(bookingId) {
+  handleDeleteConfirm = bookingId => {
     this.props.bookingActions.removeBooking(bookingId);
-    this.setState({ deleteOpen: false });
-  }
-
-  handleDeleteCancel(confirmed) {
     this.setState({ deleteOpen: false });
   }
 
@@ -109,9 +64,8 @@ class BookingsList extends React.Component {
     const newFormDialog = newOpen ? 
     <ModalForm
         open={newOpen}
-        form={BookingForm}
+        form={<BookingForm onSubmit={this.handleNewConfirm}/>}
         title="Nueva Reserva"
-        onConfirm={this.onNewConfirm}
         OnCancel={this.onNewCancel}
       />
     : null;
@@ -159,7 +113,7 @@ class BookingsList extends React.Component {
                 <TableItemMenu
                   model={booking}
                   actions={this.props.bookingActions}
-                  onDeleteConfirm={this.handleDeleteConfirm.bind(this, booking.id)}
+                  onDeleteConfirm={this.handleDeleteConfirm}
                   onEditConfirm={this.handleEditConfirm} />
               </CustomTableCell>
             </TableRow>

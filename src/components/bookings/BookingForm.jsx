@@ -79,15 +79,11 @@ class BookingForm extends React.Component {
         )
     }
 
-    onSubmit = formValues => {
-        this.props.onSubmit(formValues);
-    }
-
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, onSubmit } = this.props;
 
         return (
-            <form id="bookingFormId" onSubmit={handleSubmit(this.onSubmit)} style={{fontSize: '1.20rem'}}>
+            <form id="bookingFormId" onSubmit={handleSubmit(onSubmit)} style={{fontSize: '1.20rem'}}>
                 <div style={{float: 'left', width: '33%',  height:'100%'}}>
                     <Field name="client" label="Cliente" component={this.renderTextField} type="text" />
                     <Field name="total" label="Total" component={this.renderTextField} type="text" />
