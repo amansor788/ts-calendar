@@ -11,7 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 import CustomTableCell from '../CustomTableCell';
 import * as clientActions from '../../actions/ClientActions';
-import TableItemMenu from '../../components/TableItemMenu';
+import ClientTableItemMenu from './ClientTableItemMenu';
 import ModalForm from '../ModalForm';
 import ClientForm from './ClientForm';
 
@@ -48,9 +48,12 @@ class ClientsList extends React.Component {
     this.setState({ newOpen: false });
   }
 
+  handleEditConfirm = (clientId,formValues) => {
+    this.props.clientActions.updateClient(clientId, formValues);
+  }
+
   handleDeleteConfirm = clientId => {
     this.props.clientActions.removeClient(clientId);
-    this.setState({ deleteOpen: false });
   }
 
   render(){
@@ -85,7 +88,7 @@ class ClientsList extends React.Component {
               <CustomTableCell>{client.condition}</CustomTableCell>
               <CustomTableCell>{client.email}</CustomTableCell>
               <CustomTableCell> 
-                <TableItemMenu
+                <ClientTableItemMenu
                   model={client}
                   actions={this.props.clientActions}
                   onDeleteConfirm={this.handleDeleteConfirm}

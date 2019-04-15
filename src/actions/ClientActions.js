@@ -36,7 +36,7 @@ export function removeClient(clientId) {
       .then((response) => {
         dispatch({
           type: types.REMOVE_CLIENT_SUCCESS,
-          client: response.data,
+          payload: clientId,
         });
       });
   };
