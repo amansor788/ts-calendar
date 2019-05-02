@@ -7,6 +7,8 @@ import blue from '@material-ui/core/colors/lightBlue';
 import Header from './components/Header';
 import BookingsList from './components/bookings/BookingsList';
 import ClientsList from './components/clients/ClientsList';
+//import Calendar from './components/calendar/Calendar';
+import BookingsCalendar from './components/calendar/BookingsCalendar';
 
 const theme = createMuiTheme({
     palette: {
@@ -33,6 +35,7 @@ class App extends Component {
           <div>
             <Route path="/bookings" component={BookingsList} />
             <Route path="/clients" component={ClientsList} />
+            <Route path="/calendar" component={BookingsCalendar} />
           </div>
         </div>
     </MuiThemeProvider>

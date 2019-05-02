@@ -15,7 +15,7 @@ import InfoIcon from '@material-ui/icons/Info';
 
 import ModalForm from './ModalForm';
 import BookingForm from './bookings/BookingForm';
-import BookingCalendar from './Calendar/BookingCalendar';
+import BookingCalendar from './calendar/BookingCalendar';
 
 class TableItemMenu extends React.Component {
   state = {

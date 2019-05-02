@@ -17,6 +17,7 @@ const Header = (props) => {
             <div style={{ padding: '0.5em' }}>
               <Button component={Link} to="/bookings">Reservas</Button>
               <Button component={Link} to="/clients">Clientes</Button>
+              <Button component={Link} to="/calendar">Calendario</Button>
             </div>
           </Toolbar>
         </AppBar>

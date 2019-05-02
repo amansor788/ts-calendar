@@ -23,6 +23,8 @@ class Calendar extends React.Component {
       'Diciembre',
     ];
 
+
+
     const sinceMonth = props.dates[0].since.getUTCMonth();
     const sinceYear = props.dates[0].since.getUTCFullYear();
     //const untilMonth = props.until.getMonth();
@@ -41,6 +43,7 @@ class Calendar extends React.Component {
 
   componentWillMount() {
     const { dates } = this.props;
+    console.log(dates);
 
     this.paintRanges(dates);
   }

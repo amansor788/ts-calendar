@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import * as serviceWorker from './serviceWorker';
+//import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
 import { Router, Route } from 'react-router-dom';
@@ -27,4 +27,4 @@ ReactDOM.render(
     </Provider>
     , document.getElementById('root'));
 
-serviceWorker.unregister();
+//serviceWorker.unregister();
